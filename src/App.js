@@ -7,6 +7,7 @@ import {
   Route
 } from "react-router-dom";
 import Main from './Main';
+import Home from './Home';
 
 class App extends React.Component {
   render() {
@@ -15,6 +16,14 @@ class App extends React.Component {
         <Router>
           {/* <Header /> */}
           <Routes>
+
+            <Route
+              exact path="/"
+              element={<Home />}
+            >
+            </Route>
+
+            
             <Route
               exact path="/"
               element={<Main />}
