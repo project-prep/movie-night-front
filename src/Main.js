@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import AddMovie from './components/AddMovie';
 
 class Main extends React.Component {
   constructor(props) {
@@ -12,7 +13,9 @@ class Main extends React.Component {
         genre: '',
         Synopsis: '',
         isWatched: false,
-        src: ''
+        src: '',
+        updateModalState: false,
+        modalState: false
       }
   }
 
@@ -53,6 +56,34 @@ class Main extends React.Component {
       }
     }
 
+
+    // below added for addMovie functionality
+    postMovie = async (newMovieObj) => {
+      try {
+        let url = `${process.env.REACT_APP_SERVER}/movieList`;
+        let newCreatedMovie = await axios.post(url, newMovieObj);
+
+        this.setState({
+          movieData: [...this.state.movieData, newCreatedMovie]
+        })
+      } catch(error) {
+        console.log('Error Message: ', error.message)
+      }
+    }
+
+    handleClosedModal = () => {
+      this.setState({
+        modalState: false,
+      })
+    }
+
+    handleOpenUpModal = (bookObj) => {
+      this.setState({
+        updateModalState: true,
+        updatedBook:bookObj
+      })
+    }
+
     render() {
 
       return (
@@ -64,6 +95,12 @@ class Main extends React.Component {
           </label>
         </form>
         
+
+        <AddMovie 
+          show={this.state.updateModalState}
+          close={this.handleClosedModal}
+          postMovie={this.postMovie}
+        />
         </>
       );
     }
