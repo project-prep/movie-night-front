@@ -29,7 +29,7 @@ class Main extends React.Component {
       event.preventDefault();
 
       try {
-        let url = `${process.env.REACT_APP_LOCATIONIQ_API_KEY}`;
+        let url = `${process.env.REACT_APP_SERVER}`;
         
         let movieData = await axios.get(url);
         console.log('movieData: ', movieData.data);
