@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import AddMovie from './components/AddMovie';
+import Button from 'react-bootstrap';
 
 class Main extends React.Component {
   constructor(props) {
@@ -95,7 +96,10 @@ class Main extends React.Component {
           </label>
         </form>
         
-
+        
+        <div className= "addButtonDiv">
+          <Button onClick={this.handleOpenModal}>Add Book</Button>
+        </div>
         <AddMovie 
           show={this.state.updateModalState}
           close={this.handleClosedModal}
