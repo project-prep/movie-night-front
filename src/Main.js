@@ -25,7 +25,8 @@ class Main extends Component {
         status: false,
         updateModalState: false,
         modalState: false,
-        imageURL: ''
+        imageURL: '',
+        updatedMovie: null
       }
   }
 
@@ -55,6 +56,57 @@ class Main extends Component {
         this.setState({
           errorMessage: error.message
         });
+      }
+    }
+
+    // >>> ASYNC FUNCTIONS <<<<
+
+    // delete movie data from db
+    deleteMovie = async (movieID) => {
+      try {
+        let url = `${process.env.REACT_APP_SERVER}/movieList/${movieID}`;
+
+        await axios.delete(url);
+
+        let updatedMovie = this.state.movieData.filter(movie => movie._id !== movieID);
+        this.setState({
+          movieData: updatedMovie
+        });
+      } catch(error) {
+        console.log(error.message);
+      }
+    }
+
+    // update movies
+    updateMovie = async (movieToUpdate) => {
+      console.log('Updated Movie: ', movieToUpdate);
+      try {
+        let url = `${process.env.REACT_APP_SERVER}/movieList/${movieToUpdate._id}`;
+
+        let updatedMovie = await axios.put(url, movieToUpdate);
+
+        let updatedMovieArr = this.state.movieData.map(existingMovie => {
+          return existingMovie._id === movieToUpdate._id ? updatedMovie.data : existingMovie;
+        });
+
+        this.setState({
+          movieData: updatedMovieArr
+        })
+
+      } catch(error) {
+        console.log(error.message)
+       }
+    }
+
+    // get movie data from db
+    getMovieData = async() => {
+      try {
+        let movies = await axios.get(`${process.env.REACT_APP_SERVER}/movieList`);
+        this.setState({
+          movieData: movies.data
+        })
+      } catch (error) {
+        console.log('Get movie data error: ', error.response); 
       }
     }
 
