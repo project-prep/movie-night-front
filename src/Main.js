@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import AddMovie from './components/AddMovie';
-import Button from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 
 class Main extends React.Component {
   constructor(props) {
@@ -15,6 +15,7 @@ class Main extends React.Component {
         Synopsis: '',
         isWatched: false,
         src: '',
+        status: false,
         updateModalState: false,
         modalState: false
       }
@@ -85,6 +86,7 @@ class Main extends React.Component {
       })
     }
 
+    
     render() {
 
       return (
