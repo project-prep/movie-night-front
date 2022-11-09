@@ -1,10 +1,11 @@
+/* footer styling */
 nav.nav-container.navbar.navbar-expand-lg.navbar-dark.bg-dark {
   bottom: 0%;
   right: 0%;
   left: 0%;
   position: fixed;
-  margin-top: 150px;
   background-color: #003049!important;
+  padding: 10px;
 }
 
 .left {
@@ -26,6 +27,27 @@ nav.nav-container.navbar.navbar-expand-lg.navbar-dark.bg-dark {
   display: flex;
   align-items: center;
   flex-direction: column;
+}
+
+.footerBtn {
+  position: fixed;
+  right: 1%;
+}
+
+.footerBtn:hover{
+  color: #1114c2!important; 
+  background-color: rgb(52, 133, 133)!important;
+  font-weight: bolder;
+}
+
+.email-input {
+  position: fixed;
+  right: 7%;
+}
+
+.sign-up {
+  position: fixed;
+  right: 18%;
 }
 
 
