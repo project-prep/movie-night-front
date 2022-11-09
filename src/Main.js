@@ -141,7 +141,7 @@ class Main extends Component {
         
         
         <div className= "addButtonDiv">
-          <Button onClick={this.handleOpenModal}>Add Book</Button>
+          <Button onClick={this.handleOpenModal}>Add Movie</Button>
         </div>
         <AddMovie 
           show={this.state.updateModalState}
@@ -183,7 +183,6 @@ class Main extends Component {
               </Card.Body>
             </Card>
           </Container>
-
         </>
       );
     }

@@ -9,7 +9,8 @@ class Home extends React.Component {
   render() {
     return (
       <>
-        <h1>Movie Night</h1>
+        <div className='home-div'>
+        <h1 className='login-header'>Movie Night</h1>
         {this.props.auth0.isAuthenticated ?
           <>
             <Profile />
@@ -18,7 +19,9 @@ class Home extends React.Component {
           :
           <Login />
         }
+        </div>
         
+  
       </>
     )
   }

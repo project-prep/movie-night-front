@@ -1,12 +1,50 @@
-a.nav-link{
+/* header navbar css */
+nav.header-container.navbar.navbar-expand-lg.navbar-dark.bg-dark {
+  position: fixed;
+  top: 0%;
+  right: 0%;
+  left: 0%;
+  background-color: #003049!important;
+
+}
+
+a.nav-link {
   font-size: 1.3vmax;
   padding: 0.5vmax;
   margin-right: 2.5%;
   background-color: none;
   border-radius: 5vmax;
 }
-a.nav-link:hover{
-  color:rgb(12, 12, 11);
-  background-color: rgba(48, 245, 248, 0.677) !important;
-  border-radius: 5vmax;
+
+span.Header.navbar-brand{
+  font: size 1.8vw;;
+  padding: 0.2%;
+  margin-left: 1.5%;
 }
+
+a.nav-link:hover{
+  color: #de6288; 
+}
+a.nav-link:active {
+  transform: scale(1,1)!important;
+}
+
+div.nav-item{
+  display: flex;
+  flex-direction: row;
+  color:white;
+  width: 18%;
+  position: fixed;
+  right: 1%;
+
+  /* align-items: center;
+  justify-content: right; */
+}
+
+/* Home.js css */
+.home-div {
+  margin-top: 10%;
+  margin-left: 5%;
+}
+
+

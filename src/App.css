@@ -1,4 +1,71 @@
-.App {
+/* footer styling */
+nav.nav-container.navbar.navbar-expand-lg.navbar-dark.bg-dark {
+  bottom: 0%;
+  right: 0%;
+  left: 0%;
+  position: fixed;
+  background-color: #003049!important;
+  padding: 10px;
+}
+
+.left {
+  margin-left: 125px;
+}
+
+.footer-style {
+  display: flex;
+  justify-content: center;
+}
+
+
+.circle {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #e1d4dd;
+  margin: 20px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.footerBtn {
+  position: fixed;
+  right: 1%;
+}
+
+.footerBtn:hover{
+  color: #1114c2!important; 
+  background-color: rgb(52, 133, 133)!important;
+  font-weight: bolder;
+}
+
+.email-input {
+  position: fixed;
+  right: 7%;
+}
+
+.sign-up {
+  position: fixed;
+  right: 18%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* .App {
   text-align: center;
 }
 
@@ -35,4 +102,4 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */
