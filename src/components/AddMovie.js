@@ -28,7 +28,7 @@ class AddMovie extends React.Component {
           <Form.Group controlId="status">
             <Form.Check type="checkbox" label="available" />
           </Form.Group>
-          <Button onSubmit={this.props.postBooks} type="submit">Add Books</Button>
+          <Button onSubmit={this.props.postBooks} type="submit">Add Movies</Button>
         </Form>
       </Modal>
 
