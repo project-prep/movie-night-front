@@ -7,7 +7,7 @@ import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form'
 import Card from 'react-bootstrap/Card';
-import Favorite from './components/Favorite';
+// import Favorite from './components/Favorite';
 
 
 class Main extends Component {
@@ -24,7 +24,7 @@ class Main extends Component {
         isWatched: false,
         status: false,
         updateModalState: false,
-        modalState: false
+        modalState: false,
         imageURL: ''
       }
   }
