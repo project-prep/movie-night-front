@@ -1,4 +1,49 @@
-.App {
+nav.nav-container.navbar.navbar-expand-lg.navbar-dark.bg-dark {
+  bottom: 0%;
+  right: 0%;
+  left: 0%;
+  position: fixed;
+  margin-top: 150px;
+  background-color: #003049!important;
+}
+
+.left {
+  margin-left: 125px;
+}
+
+.footer-style {
+  display: flex;
+  justify-content: center;
+}
+
+
+.circle {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #e1d4dd;
+  margin: 20px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* .App {
   text-align: center;
 }
 
@@ -35,4 +80,4 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */

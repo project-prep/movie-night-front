@@ -183,7 +183,6 @@ class Main extends Component {
               </Card.Body>
             </Card>
           </Container>
-
         </>
       );
     }

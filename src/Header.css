@@ -1,12 +1,29 @@
-a.nav-link{
-  font-size: 1.3vmax;
-  padding: 0.5vmax;
-  margin-right: 2.5%;
-  background-color: none;
-  border-radius: 5vmax;
+/* span.Header.navbar-brand {
+  font-size: 1.2vw;
+  padding: 7%;
+ 
 }
+
+span.Header.navbar-brand, a.nav-link {
+  padding: 15px;
+  font-size: 1.2vw;
+  margin-right: 2%;
+} */
+
 a.nav-link:hover{
-  color:rgb(12, 12, 11);
-  background-color: rgba(48, 245, 248, 0.677) !important;
-  border-radius: 5vmax;
+  color: #e56f4e; 
 }
+a.nav-link:active {
+  transform: scale(1,1);
+}
+
+
+div.nav-item{
+  display: flex;
+  flex-direction: 30%;
+  color:white;
+
+  align-items: center;
+  justify-content: right;
+}
+
