@@ -8,13 +8,16 @@ import {
 } from "react-router-dom";
 import Main from './Main';
 import Home from './Home';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import About from './components/About';
 
 class App extends React.Component {
   render() {
     return (
       <>
         <Router>
-          {/* <Header /> */}
+          <Header />
           <Routes>
 
             <Route
@@ -25,17 +28,19 @@ class App extends React.Component {
 
             
             <Route
-              exact path="/"
+              exact path="/main"
               element={<Main />}
             >
+            
+            {/* <Main /> */}
 
             </Route>
-            {/* <Route path="/about"
+            <Route path="/about"
               element={<About />}
             >
-            </Route> */}
+            </Route>
           </Routes>
-          {/* <Footer /> */}
+          <Footer />
         </Router>
       </>
     );
