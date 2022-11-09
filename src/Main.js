@@ -1,10 +1,14 @@
 import { Component } from 'react';
 import axios from 'axios';
+
+import AddMovie from './components/AddMovie';
+
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form'
 import Card from 'react-bootstrap/Card';
 import Favorite from './components/Favorite';
+
 
 class Main extends Component {
   constructor(props) {
@@ -18,6 +22,9 @@ class Main extends Component {
         genre: '',
         synopsis: '',
         isWatched: false,
+        status: false,
+        updateModalState: false,
+        modalState: false
         imageURL: ''
       }
   }
@@ -50,6 +57,37 @@ class Main extends Component {
         });
       }
     }
+
+
+
+    // below added for addMovie functionality
+    postMovie = async (newMovieObj) => {
+      try {
+        let url = `${process.env.REACT_APP_SERVER}/movieList`;
+        let newCreatedMovie = await axios.post(url, newMovieObj);
+
+        this.setState({
+          movieData: [...this.state.movieData, newCreatedMovie]
+        })
+      } catch(error) {
+        console.log('Error Message: ', error.message)
+      }
+    }
+
+    handleClosedModal = () => {
+      this.setState({
+        modalState: false,
+      })
+    }
+
+    handleOpenUpModal = (bookObj) => {
+      this.setState({
+        updateModalState: true,
+        updatedBook:bookObj
+      })
+    }
+
+    
 
     handleWatch = (searchQuery, lat, lon) => {
       searchQuery.preventDefault();
@@ -90,9 +128,26 @@ class Main extends Component {
       console.log(value);
     }
 
+
     render() {
       return (
         <>
+        <form onSubmit={this.getMovieData}>
+          <label>Enter Movie Title:
+            <input type="text" onInput={this.handleMovieSubmit} />
+            <button type="submit">Search Movie!</button>
+          </label>
+        </form>
+        
+        
+        <div className= "addButtonDiv">
+          <Button onClick={this.handleOpenModal}>Add Book</Button>
+        </div>
+        <AddMovie 
+          show={this.state.updateModalState}
+          close={this.handleClosedModal}
+          postMovie={this.postMovie}
+        />
           <Container className='movieCard'>
             <Form onSubmit={this.handleMovie}>
               <label>Enter Movie Title:
@@ -128,6 +183,7 @@ class Main extends Component {
               </Card.Body>
             </Card>
           </Container>
+
         </>
       );
     }
