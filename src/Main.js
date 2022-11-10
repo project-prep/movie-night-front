@@ -2,7 +2,6 @@ import { Component } from 'react';
 import axios from 'axios';
 import './App.css';
 import AddMovie from './components/AddMovie';
-
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form'

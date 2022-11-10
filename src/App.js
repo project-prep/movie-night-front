@@ -27,24 +27,6 @@ class App extends React.Component {
           
           <Routes>
 
-            {/* <Route
-              exact path="/"
-              element={<Home />}
-            >
-            </Route>
-            
-            <Route
-              exact path="/main"
-              element={<Main />}
-            >
-            </Route>
-
-            <Route path="/about"
-              element={<About />}
-            >
-            </Route> */}
-
-
             <Route exact path="/" element = {
             
               this.props.auth0.isAuthenticated ? 
@@ -55,20 +37,17 @@ class App extends React.Component {
                   <Logout />
                   <Main />
                   {/* <About /> */}
-                  <Footer />
-                  
-                </>
-                
+                  <Footer />  
+                </>  
                 : 
                 <>
                   <Login />
-                </>
-                
+                </>   
             }
         
             />
 
-            <Route path="/about"
+            <Route path="/"
               element={<Header />}
             >
             </Route>
@@ -78,13 +57,10 @@ class App extends React.Component {
             >
             </Route>
 
-            {/* </Route> */}
-
-            {/* <Route exact path="/about"
+            <Route path="/footer"
+              element={<Footer />}
             >
-              {this.props.auth0.isAuthenticated ? <About /> : <Login />}
-            </Route> */}
-
+            </Route>
 
           </Routes>
           

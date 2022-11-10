@@ -1,16 +1,62 @@
 /* Styling Login.js */
-.login-div {
-  margin: 10%;
-}
 
-body {
-  /* background-image: url("./img/kushagra-kevat-8cYwYgasSis-unsplash.jpg");
+html, #root {
+  background-image: url("./images/login-bg.jpg");
   font-family: raleway;
   margin: auto;
   height: 100%; 
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover; */
-  background-color: rgb(54, 54, 102);
-  /* color: white; */
+  background-size: cover;
+  color: rgb(208, 219, 229);
+}
+
+/* #root {
+  background-image: url("./images/login-bg.jpg");
+  font-family: raleway;
+  margin: auto;
+  height: 100%; 
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+} */
+
+
+.welcome {
+  color: white;
+  font-weight: 100;
+  opacity: 0.8;
+}
+
+.login-div {
+  margin-left: 15%;
+  margin-top: 10%;
+}
+
+div.login-description {
+  width: 50%;
+
+  background-color: rgb(23, 17, 59);
+  color: white;
+  padding: 25px;
+  margin-left: 15%;
+  margin-top: 5%;
+}
+
+.login-btn {
+  background-color: rgb(39, 39, 176);
+  color: white;
+  padding: 15px;
+  border-radius: 10%;
+  margin-top: 2%;
+}
+
+.login-btn:hover {
+  background-color: aquamarine;
+  color: black;
+}
+
+button.login-btn:active {
+  transform: scale(2, 2)!important;
+  box-shadow: 0 0 50px black
 }
