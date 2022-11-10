@@ -1,11 +1,21 @@
 /* header navbar css */
+.logo {
+  position: fixed;
+  left: 2%;
+}
+
+img {
+  width: 80px;
+  height: 80px;;
+}
+
 nav.header-container.navbar.navbar-expand-lg.navbar-dark.bg-dark {
   position: fixed;
   top: 0%;
   right: 0%;
   left: 0%;
   background-color: #003049!important;
-
+  padding: 30px;
 }
 
 a.nav-link {
@@ -19,7 +29,7 @@ a.nav-link {
 span.Header.navbar-brand{
   font: size 1.8vw;;
   padding: 0.2%;
-  margin-left: 1.5%;
+  margin-left: 10%;
 }
 
 a.nav-link:hover{
