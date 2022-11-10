@@ -7,40 +7,63 @@ import {
   Route
 } from "react-router-dom";
 import Main from './Main';
-import Home from './Home';
+// import Home from './Home';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import About from './components/About';
+
+import Login from './components/Login';
+import Logout from './components/Logout';
+import Profile from './components/Profile';
+
+import { withAuth0 } from '@auth0/auth0-react';
+
 
 class App extends React.Component {
   render() {
     return (
       <>
         <Router>
-          <Header />
+          
           <Routes>
 
-            <Route
-              exact path="/"
-              element={<Home />}
+            <Route exact path="/" element = {
+            
+              this.props.auth0.isAuthenticated ? 
+                
+                <>
+                  <Header />
+                  <Profile />
+                  <Logout />
+                  <Main />
+                  {/* <About /> */}
+                  <Footer />  
+                </>  
+                : 
+                <>
+                  <Login />
+                </>   
+            }
+        
+            />
+
+            <Route path="/"
+              element={<Header />}
             >
             </Route>
 
-            
-            <Route
-              exact path="/main"
-              element={<Main />}
-            >
-            
-            {/* <Main /> */}
-
-            </Route>
             <Route path="/about"
               element={<About />}
             >
             </Route>
+
+            <Route path="/footer"
+              element={<Footer />}
+            >
+            </Route>
+
           </Routes>
-          <Footer />
+          
         </Router>
       </>
     );
@@ -49,4 +72,4 @@ class App extends React.Component {
 
 
 
-export default App;
+export default withAuth0(App);

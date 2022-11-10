@@ -1,9 +1,8 @@
 import { Component } from 'react';
 import axios from 'axios';
-
+import './App.css';
 import AddMovie from './components/AddMovie';
 import Movie from './components/Movie.js';
-
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form'
@@ -13,7 +12,6 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 // import Favorite from './components/Favorite';
-
 
 class Main extends Component {
   constructor(props) {
@@ -36,10 +34,9 @@ class Main extends Component {
       }
   }
 
-    // handler event to get movie data
-    handleMovie = async (event) => {
-      event.preventDefault();
-
+  // handler event to get movie data
+  handleMovie = async (event) => {
+    event.preventDefault();
       try {
         let url = `${process.env.REACT_APP_SERVER}/movies?name=${this.state.searchQuery}`;
         
@@ -53,13 +50,22 @@ class Main extends Component {
           streaming: movieData.data[0].locations[0].display_name,
         })
 
-      } catch (error) {
-        console.log('Error: ', error.message);
-        this.setState({
-          errorMessage: error.message
-        });
-      }
+      this.setState({
+        title: movie.title,
+        streaming: movie.streaming,
+        year: movie.year,
+        genre: movie.genre,
+        Synopsis: movie.Synopsis,
+        src: movie.src
+      })
+
+    } catch (error) {
+      console.log('Error: ', error.message);
+      this.setState({
+        errorMessage: error.message
+      });
     }
+  }
 
     handleMovieAdd = (event) => {
       event.preventDefault();
@@ -78,55 +84,54 @@ class Main extends Component {
 
     // >>> ASYNC FUNCTIONS <<<<
 
-    // delete movie data from db
-    deleteMovie = async (movieID) => {
-      try {
-        let url = `${process.env.REACT_APP_SERVER}/movieList/${movieID}`;
+  // delete movie data from db
+  deleteMovie = async (movieID) => {
+    try {
+      let url = `${process.env.REACT_APP_SERVER}/movieList/${movieID}`;
 
-        await axios.delete(url);
+      await axios.delete(url);
 
-        let updatedMovie = this.state.movieData.filter(movie => movie._id !== movieID);
-        this.setState({
-          movieData: updatedMovie
-        });
-      } catch(error) {
-        console.log(error.message);
-      }
+      let updatedMovie = this.state.movieData.filter(movie => movie._id !== movieID);
+      this.setState({
+        movieData: updatedMovie
+      });
+    } catch (error) {
+      console.log(error.message);
     }
+  }
 
-    // update movies
-    updateMovie = async (movieToUpdate) => {
-      console.log('Updated Movie: ', movieToUpdate);
-      try {
-        let url = `${process.env.REACT_APP_SERVER}/movieList/${movieToUpdate._id}`;
+  // update movies
+  updateMovie = async (movieToUpdate) => {
+    console.log('Updated Movie: ', movieToUpdate);
+    try {
+      let url = `${process.env.REACT_APP_SERVER}/movieList/${movieToUpdate._id}`;
 
-        let updatedMovie = await axios.put(url, movieToUpdate);
+      let updatedMovie = await axios.put(url, movieToUpdate);
 
-        let updatedMovieArr = this.state.movieData.map(existingMovie => {
-          return existingMovie._id === movieToUpdate._id ? updatedMovie.data : existingMovie;
-        });
+      let updatedMovieArr = this.state.movieData.map(existingMovie => {
+        return existingMovie._id === movieToUpdate._id ? updatedMovie.data : existingMovie;
+      });
 
-        this.setState({
-          movieData: updatedMovieArr
-        })
+      this.setState({
+        movieData: updatedMovieArr
+      })
 
-      } catch(error) {
-        console.log(error.message)
-       }
+    } catch (error) {
+      console.log(error.message)
     }
+  }
 
-    // get movie data from db
-    getMovieData = async() => {
-      try {
-        let movies = await axios.get(`${process.env.REACT_APP_SERVER}/movieList`);
-        this.setState({
-          movieData: movies.data
-        })
-      } catch (error) {
-        console.log('Get movie data error: ', error.response); 
-      }
+  // get movie data from db
+  getMovieData = async () => {
+    try {
+      let movies = await axios.get(`${process.env.REACT_APP_SERVER}/movieList`);
+      this.setState({
+        movieData: movies.data
+      })
+    } catch (error) {
+      console.log('Get movie data error: ', error.response);
     }
-
+  }
 
 
     // below added for addMovie functionality
@@ -160,13 +165,12 @@ class Main extends Component {
       this.setState({carouselIndex: selectedIndex});
     } 
 
-    handleChange = (event) => {
-      let { value } = event.target;
-      value.toLowerCase();
-      this.setState({ searchQuery: value })
-      console.log(value);
-    }
-
+  handleChange = (event) => {
+    let { value } = event.target;
+    value.toLowerCase();
+    this.setState({ searchQuery: value })
+    console.log(value);
+  }
 
     render() {
       return (
@@ -191,11 +195,11 @@ class Main extends Component {
             <Form onSubmit={this.handleMovie}>
               <label>Enter Movie Title:
                 <Form.Control type="text" onChange={this.handleChange} />
-                  <Button type="submit">Search Movie!</Button>
+                <Button type="submit">Search Movie!</Button>
               </label>
             </Form>
-            <Card className='movieCard' style={{ width: '40rem'}}>
-              <Card.Img variant ="top" src={this.state.imageURL} />
+            <Card className='movieCard' style={{ width: '40rem' }}>
+              <Card.Img variant="top" src={this.state.imageURL} />
               <Card.Body>
                 <Card.Title>{this.state.title}</Card.Title>
                 <div className='movie'>
@@ -227,7 +231,6 @@ class Main extends Component {
         </>
       );
     }
-  
 }
 
 export default Main;
