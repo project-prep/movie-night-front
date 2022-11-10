@@ -2,11 +2,16 @@ import { Component } from 'react';
 import axios from 'axios';
 
 import AddMovie from './components/AddMovie';
+import Movie from './components/Movie.js';
 
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form'
 import Card from 'react-bootstrap/Card';
+import Carousel from 'react-bootstrap/Carousel';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+
 // import Favorite from './components/Favorite';
 
 
@@ -26,7 +31,8 @@ class Main extends Component {
         updateModalState: false,
         modalState: false,
         imageURL: '',
-        updatedMovie: null
+        updatedMovie: null,
+        watchList: []
       }
   }
 
@@ -35,20 +41,16 @@ class Main extends Component {
       event.preventDefault();
 
       try {
-        let url = `${process.env.REACT_APP_SERVER}`;
+        let url = `${process.env.REACT_APP_SERVER}/movies?name=${this.state.searchQuery}`;
         
         let movieData = await axios.get(url);
         console.log('movieData: ', movieData.data);
 
-        let movie = movieData.data;
+        // let movie = movieData.data;
 
         this.setState({
-          title: movie.title,
-          streaming: movie.streaming,
-          year: movie.year,
-          genre: movie.genre,
-          Synopsis: movie.Synopsis,
-          src: movie.src
+          title: movieData.data[0].name,
+          streaming: movieData.data[0].locations[0].display_name,
         })
 
       } catch (error) {
@@ -58,6 +60,18 @@ class Main extends Component {
         });
       }
     }
+
+    handleMovieAdd = (event) => {
+      event.preventDefault();
+       let newMovie = {
+        title: this.state.title,
+        streaming: this.state.streaming
+      }
+       console.log('newMovie: ', newMovie);
+     
+      this.postMovie(newMovie);
+    }
+ 
 
     // >>> ASYNC FUNCTIONS <<<<
 
@@ -113,65 +127,35 @@ class Main extends Component {
 
 
     // below added for addMovie functionality
-    postMovie = async (newMovieObj) => {
+    postMovie = async (newMovie) => {
       try {
         let url = `${process.env.REACT_APP_SERVER}/movieList`;
-        let newCreatedMovie = await axios.post(url, newMovieObj);
+        let newCreatedMovie = await axios.post(url, newMovie);
 
         this.setState({
-          movieData: [...this.state.movieData, newCreatedMovie]
+          watchList: [...this.state.watchList, newCreatedMovie]
         })
       } catch(error) {
         console.log('Error Message: ', error.message)
       }
     }
 
-    handleClosedModal = () => {
-      this.setState({
-        modalState: false,
-      })
-    }
+    // handleClosedModal = () => {
+    //   this.setState({
+    //     modalState: false,
+    //   })
+    // }
 
-    handleOpenUpModal = (bookObj) => {
-      this.setState({
-        updateModalState: true,
-        updatedBook:bookObj
-      })
-    }
+    // handleOpenUpModal = (bookObj) => {
+    //   this.setState({
+    //     updateModalState: true,
+    //     updatedBook:bookObj
+    //   })
+    // }
 
-    
-
-    handleWatch = (searchQuery, lat, lon) => {
-      searchQuery.preventDefault();
-      const url = `http://localhost:3002/weather?city_name=${this.state.searchQuery}&lat=${this.state.lat}&lon=${this.state.lon}`;
-      axios.get(url).then(
-        response => {
-          console.log(response, 'response');
-          this.setState({
-            weather: response.data,
-          })
-        })
-        .catch((error) => {
-          const errorMessage = `${error.response.data.error}. ${error.message} (${error.code}).`;
-          this.setState({showAlert: true, errorMessage: errorMessage})
-        })
-    }
-  
-    handleFavorite = (e) => {
-      e.preventDefault();
-      const url = `http://localhost:3002/movies?city_name=${this.state.searchQuery}`;
-      axios.get(url).then(
-        response => {
-          console.log(response, 'response');
-          this.setState({
-            movies: response.data,
-          })
-        })
-        .catch((error) => {
-          const errorMessage = `${error.response.data.error}. ${error.message} (${error.code}).`;
-          this.setState({ showAlert: true, errorMessage: errorMessage })
-        })
-    }
+    handleCarouselSelect = (selectedIndex, e) => {
+      this.setState({carouselIndex: selectedIndex});
+    } 
 
     handleChange = (event) => {
       let { value } = event.target;
@@ -184,7 +168,7 @@ class Main extends Component {
     render() {
       return (
         <>
-        <form onSubmit={this.getMovieData}>
+        {/* <form onSubmit={this.getMovieData}>
           <label>Enter Movie Title:
             <input type="text" onInput={this.handleMovieSubmit} />
             <button type="submit">Search Movie!</button>
@@ -199,7 +183,7 @@ class Main extends Component {
           show={this.state.updateModalState}
           close={this.handleClosedModal}
           postMovie={this.postMovie}
-        />
+        /> */}
           <Container className='movieCard'>
             <Form onSubmit={this.handleMovie}>
               <label>Enter Movie Title:
@@ -213,28 +197,32 @@ class Main extends Component {
                 <Card.Title>{this.state.title}</Card.Title>
                 <div className='movie'>
                   <Card.Text>Streaming Platforms: {this.state.streaming}</Card.Text>
-                  <Card.Text>Movie Synopsis: {this.state.synopsis}</Card.Text>
-                  <Card.Text>Genre: {this.state.genre}</Card.Text>
-                  <Card.Text>Year: {this.state.year}</Card.Text>
                 </div>
               </Card.Body>
             </Card>
-            <Form onSubmit={this.handleWatch}>
+            <Form onSubmit={this.handleMovieAdd}>
                 <Button type="submit">Add Movie to Watchlist</Button>
-            </Form>
-            <Form onSubmit={this.handleFavorite}>
-                <Button type="submit">Add Movie to Favorites</Button>
             </Form>
           </Container>
 
-          <Container className='Favorites'>
-            <Card className='Favorites' style={{ width: '40rem'}}>
-              <Card.Img variant ="top" src={this.state.mapImage} />
-              <Card.Body>
-                <Card.Title>Movies to Watch // Favorites</Card.Title>
-              </Card.Body>
-            </Card>
-          </Container>
+          <Container className='WatchList'>
+           <h2>Your Watchlist</h2>
+             {this.state.watchList.length ? (
+               <Row xs={1} sm={2}md={3} lg={4} xl={5}>
+               {this.state.watchList.map(element =>
+                   <Col>
+                       <Movie
+                           title={element.title}
+                           streaming={element.streaming}
+ 
+                            />
+                   </Col>
+               )}
+           </Row>
+             ) : (
+               <h3>No Movies in your Watchlist</h3>
+             )}
+         </Container>
         </>
       );
     }
