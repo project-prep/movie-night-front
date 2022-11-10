@@ -1,3 +1,28 @@
+
+
+
+/* styling for Main.js */
+.sect-main {
+  margin-top: 5%;
+}
+
+.addBtn {
+  position: fixed;
+  left: 47%;
+  margin-top: 2%;
+
+}
+
+/* Styling for  Profile.js */
+.profile-container {
+  margin-top: 10%;
+  margin-left: 10%;
+}
+
+.logout-container {
+  margin-left: 10%;
+}
+
 /* footer styling */
 nav.nav-container.navbar.navbar-expand-lg.navbar-dark.bg-dark {
   bottom: 0%;

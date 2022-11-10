@@ -1,0 +1,16 @@
+/* Styling Login.js */
+.login-div {
+  margin: 10%;
+}
+
+body {
+  /* background-image: url("./img/kushagra-kevat-8cYwYgasSis-unsplash.jpg");
+  font-family: raleway;
+  margin: auto;
+  height: 100%; 
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover; */
+  background-color: rgb(54, 54, 102);
+  /* color: white; */
+}

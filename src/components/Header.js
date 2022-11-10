@@ -12,10 +12,16 @@ class Header extends React.Component {
         <NavItem>
           <Link to="/" className="nav-link">Home</Link>
 
-          <Link to="/main" className="nav-link">Main</Link>
+          <Link to="/" className="nav-link">Main</Link>
 
           <Link to="/about" className="nav-link">About Us</Link>
 
+          {/* <Link className="nav-link">Home</Link>
+
+          <Link className="nav-link">Main</Link>
+
+          <Link className="nav-link">About Us</Link> */}
+          
         </NavItem>
       </Navbar>
     )

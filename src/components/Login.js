@@ -1,10 +1,23 @@
 import React from "react";
+import '../Login.css';
 import { useAuth0 } from "@auth0/auth0-react";
 
-const LoginButton = () => {
+const Login = () => {
   const { loginWithRedirect } = useAuth0();
 
-  return <button onClick={() => loginWithRedirect()}>Log In</button>;
+  return (
+    <>
+
+      <div className="login-div">
+        <h1>Welcome to Movie Night</h1>
+        <button onClick={() => loginWithRedirect()}>Log In</button>
+      </div>
+      <div>
+        
+      </div>
+      
+    </>
+  );
 };
 
-export default LoginButton;
+export default Login;
