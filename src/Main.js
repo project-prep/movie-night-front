@@ -50,15 +50,6 @@ class Main extends Component {
           streaming: movieData.data[0].locations[0].display_name,
         })
 
-      this.setState({
-        title: movie.title,
-        streaming: movie.streaming,
-        year: movie.year,
-        genre: movie.genre,
-        Synopsis: movie.Synopsis,
-        src: movie.src
-      })
-
     } catch (error) {
       console.log('Error: ', error.message);
       this.setState({
@@ -75,10 +66,29 @@ class Main extends Component {
       }
       console.log('newMovie: ', newMovie);
 
-      this.state.watchList.push(newMovie);
-      console.log(this.state.watchList);
+      // this.state.watchList.push(newMovie);
 
-      // this.postMovie(newMovie);
+      // this.setState({
+      //   watchList: [...this.state.watchList, newMovie] 
+      // })
+
+      this.postMovie(newMovie);
+
+      console.log(this.state.watchList);
+    }
+
+    // below added for addMovie functionality
+    postMovie = async (newMovie) => {
+      try {
+        let url = `${process.env.REACT_APP_SERVER}/movieList`;
+        let newCreatedMovie = await axios.post(url, newMovie);
+
+        this.setState({
+          watchList: [...this.state.watchList, newCreatedMovie.data]
+        })
+      } catch(error) {
+        console.log('Error Message: ', error.message)
+      }
     }
  
 
@@ -87,7 +97,7 @@ class Main extends Component {
   // delete movie data from db
   deleteMovie = async (movieID) => {
     try {
-      let url = `${process.env.REACT_APP_SERVER}/movieList/${movieID}`;
+      let url = `${process.env.REACT_APP_SERVER}/movieList/${movieID._id}`;
 
       await axios.delete(url);
 
@@ -132,21 +142,6 @@ class Main extends Component {
       console.log('Get movie data error: ', error.response);
     }
   }
-
-
-    // below added for addMovie functionality
-    postMovie = async (newMovie) => {
-      try {
-        let url = `${process.env.REACT_APP_SERVER}/movieList`;
-        let newCreatedMovie = await axios.post(url, newMovie);
-
-        this.setState({
-          watchList: [...this.state.watchList, newCreatedMovie]
-        })
-      } catch(error) {
-        console.log('Error Message: ', error.message)
-      }
-    }
 
     // handleClosedModal = () => {
     //   this.setState({
@@ -218,10 +213,10 @@ class Main extends Component {
               <Card>
                 {this.state.watchList.map(element => 
                   <Card.Body>
-                    {element[0]}
-                    <Button onClick={element => this.deleteMovie(element) } variant='danger'>Delete Movie</Button>
+                    <h3>{element.title}</h3>
+                    <h4>{element.streaming}</h4>
+                    <Button onClick={element => this.deleteMovie(element._id) } variant='danger'>Delete Movie</Button>
                   </Card.Body>
-             
               )}
               </Card>
             ) : (
