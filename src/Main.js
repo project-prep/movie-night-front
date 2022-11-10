@@ -97,13 +97,13 @@ class Main extends Component {
   // delete movie data from db
   deleteMovie = async (movieID) => {
     try {
-      let url = `${process.env.REACT_APP_SERVER}/movieList/${movieID._id}`;
+      let url = `${process.env.REACT_APP_SERVER}/movieList/${movieID}`;
 
       await axios.delete(url);
 
-      let updatedMovie = this.state.movieData.filter(movie => movie._id !== movieID);
+      let updatedMovie = this.state.watchList.filter(movie => movie._id !== movieID);
       this.setState({
-        movieData: updatedMovie
+        watchList: updatedMovie
       });
     } catch (error) {
       console.log(error.message);
@@ -168,6 +168,7 @@ class Main extends Component {
   }
 
     render() {
+      console.log(this.state);
       return (
         <>
         {/* <form onSubmit={this.getMovieData}>
@@ -215,7 +216,9 @@ class Main extends Component {
                   <Card.Body>
                     <h3>{element.title}</h3>
                     <h4>{element.streaming}</h4>
-                    <Button onClick={element => this.deleteMovie(element._id) } variant='danger'>Delete Movie</Button>
+                    <p> {element._id}</p>
+                    <Button onClick={() => this.deleteMovie(element._id) } variant='danger'>Delete Movie</Button>
+                   
                   </Card.Body>
               )}
               </Card>
