@@ -63,13 +63,16 @@ class Main extends Component {
 
     handleMovieAdd = (event) => {
       event.preventDefault();
-       let newMovie = {
+        let newMovie = {
         title: this.state.title,
         streaming: this.state.streaming
       }
-       console.log('newMovie: ', newMovie);
-     
-      this.postMovie(newMovie);
+      console.log('newMovie: ', newMovie);
+
+      this.state.watchList.push(newMovie);
+      console.log(this.state.watchList);
+
+      // this.postMovie(newMovie);
     }
  
 
@@ -207,21 +210,19 @@ class Main extends Component {
 
           <Container className='WatchList'>
            <h2>Your Watchlist</h2>
-             {this.state.watchList.length ? (
-               <Row xs={1} sm={2}md={3} lg={4} xl={5}>
-               {this.state.watchList.map(element =>
-                   <Col>
-                       <Movie
-                           title={element.title}
-                           streaming={element.streaming}
- 
-                            />
-                   </Col>
-               )}
-           </Row>
-             ) : (
-               <h3>No Movies in your Watchlist</h3>
-             )}
+            {this.state.watchList.length ? (
+              <Card>
+                {this.state.watchList.map(element => 
+                  <Card.Body>
+                    {element[0]}
+                    <Button onClick={element => this.deleteMovie(element) } variant='danger'>Delete Movie</Button>
+                  </Card.Body>
+             
+              )}
+              </Card>
+            ) : (
+              <h3>No Movies in your Watchlist :</h3>
+            )}
          </Container>
         </>
       );
