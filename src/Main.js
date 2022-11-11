@@ -20,7 +20,7 @@ class Main extends Component {
       searchQuery: '',
       // movieData: [],
       title: '',
-      streaming: '',
+      streaming: [],
       year: '',
       genre: '',
       synopsis: '',
@@ -51,7 +51,7 @@ class Main extends Component {
 
       this.setState({
         title: movieData.data[0].name,
-        streaming: movieData.data[0].locations[0].display_name,
+        streaming: movieData.data[0].locations,
         test: movieData.data[0]._id,
       })
 
@@ -67,7 +67,7 @@ class Main extends Component {
     event.preventDefault();
     let newMovie = {
       title: this.state.title,
-      streaming: this.state.streaming,
+      streaming: this.state.streaming.join(' '),
       // test: this.state.test
     }
     console.log('newMovie: ', newMovie);
@@ -120,25 +120,26 @@ class Main extends Component {
   }
 
   // update movies
-  updateMovie = async (movieID) => {
-    console.log('Updated Movie: ', movieID);
+  updateMovie = async (movie) => {
+    // console.log('Updated Movie: ', movieID);
     try {
       // debugger;
-      let url = `${process.env.REACT_APP_SERVER}/movieList/${movieID}`;
+      let url = `${process.env.REACT_APP_SERVER}/movieList/${movie._id}`;
       console.log(url);
-      let updatedMovie = await axios.put(url, movieID);
+      let updatedMovie = await axios.put(url, movie);
 
       let updatedMovieArr = this.state.watchList.map(existingMovie => {
-        return existingMovie._id === movieID ? updatedMovie.data : existingMovie;
+        return existingMovie._id === movie._id ? updatedMovie.data : existingMovie;
       });
-      console.log(updatedMovie.data);
+      console.log('updated movie ARR',updatedMovieArr);
 
       this.setState({
         watchList: updatedMovieArr,
-          title: updatedMovie.data[0].name,
-          streaming: updatedMovie.data[0].locations[0].display_name,
-          test: updatedMovie.data[0]._id,
+          // title: updatedMovie.data[0].name,
+          // streaming: updatedMovie.data[0].locations[0].display_name,
+          // test: updatedMovie.data[0]._id,
       })
+      // this.getMovieData();
       console.log(this.state.watchList);
     } catch (error) {
       console.log(error.message)
@@ -191,10 +192,10 @@ class Main extends Component {
     })
   }
 
-  handleOpenUpModal = (movieID) => {
+  handleOpenUpModal = (movie) => {
     this.setState({
       modalState: true,
-      updatedMovie: movieID,
+      updatedMovie: movie,
 
     })
   }
@@ -248,7 +249,7 @@ class Main extends Component {
               <Card.Body>
                 <Card.Title>{this.state.title}</Card.Title>
                 <div className='movie'>
-                  <Card.Text>Streaming Platforms: {this.state.streaming}</Card.Text>
+                  <Card.Text>Streaming Platforms: {this.state.streaming.map(element => <p>{element}</p>)}</Card.Text>
                 </div>
               </Card.Body>
             </Card>
@@ -267,9 +268,10 @@ class Main extends Component {
                 <Card.Body key={element._id}>
                   <h3>{element.title}</h3>
                   <h4>{element.streaming}</h4>
+                  <p>{element.watched ? 'Watched' : 'Not Watched'}</p>
                   <Button onClick={() => this.deleteMovie(element._id)} variant='danger'>Delete Movie</Button>
 
-                  <Button onClick= {()=> this.handleOpenUpModal(element._id)} variant='info'>Update Movie</Button>
+                  <Button onClick= {()=> this.handleOpenUpModal(element)} variant='info'>Update Movie</Button>
                   
 
                   {/* <Form.Group controlId="status">
@@ -292,6 +294,7 @@ class Main extends Component {
             title= {this.state.title}
             streaming= {this.state.streaming}
             updateMovie={this.updateMovie}
+            
             
           />
         }

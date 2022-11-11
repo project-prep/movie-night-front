@@ -5,16 +5,17 @@ class AddMovie extends React.Component {
 
   handleMovieUpdate = (event) => {
     event.preventDefault();
-
+    console.log('updated movie', this.props.updatedMovie);
     let newMovie = {
       watched: event.target.watched.checked,
-      _id: this.props.updatedMovie,
-      title: this.props.title,
-      streaming: this.props.streaming
+      _id: this.props.updatedMovie._id,
+      title: this.props.updatedMovie.title,
+      streaming: this.props.updatedMovie.streaming
     }
     console.log(newMovie._id);
     console.log('newMovie: ', newMovie);
-    this.props.updateMovie(newMovie._id);
+    this.props.updateMovie(newMovie);
+    this.props.close();
   }
 
   render() {
