@@ -1,4 +1,17 @@
 /* styling for Main.js */
+
+.movieCard {
+  padding-top: 15px;
+  padding-bottom: 15px;
+
+}
+
+.WatchList {
+  margin-bottom: 20%;
+  padding-bottom: 150px;
+  padding-top: 20px;
+}
+
 div.movie {
   color: black;
 }
