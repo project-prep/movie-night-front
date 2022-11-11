@@ -7,7 +7,7 @@ class AddMovie extends React.Component {
     event.preventDefault();
 
     let newMovie = {
-      isWatched: event.target.isWatched.checked
+      watched: event.target.watched.checked
     }
     console.log('newMovie: ', newMovie);
     this.props.updateMovie(newMovie);

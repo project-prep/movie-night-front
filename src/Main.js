@@ -18,7 +18,7 @@ class Main extends Component {
     super(props);
     this.state = {
       searchQuery: '',
-      movieData: [],
+      // movieData: [],
       title: '',
       streaming: '',
       year: '',
@@ -70,7 +70,6 @@ class Main extends Component {
     console.log('newMovie: ', newMovie);
 
     // this.state.watchList.push(newMovie);
-    console.log(this.state.movieData);
 
     this.setState({
       watchList: [...this.state.watchList, newMovie]
