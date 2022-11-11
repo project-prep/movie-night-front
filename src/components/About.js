@@ -37,9 +37,7 @@ class About extends Component {
               </div>
             </div>
           </div>
-          {/* </section> */}
-
-        {/* <section className='flip-sect'> */}
+        </div>
         <div className='item-divs'>
           <div className="about-div1">
             <div className="about-div2">
@@ -53,9 +51,7 @@ class About extends Component {
               </div>
             </div>
           </div>
-          {/* </section> */}
-
-          {/* <section className='flip-sect'> */}
+      
           <div className='item-divs'>
             <div className="about-div1">
               <div className="about-div2">
@@ -74,14 +70,10 @@ class About extends Component {
               </div>
             </div>
           </div>
-          {/* </section> */}
-
-          {/* <section className='flip-sect'> */}
           <div className='item-divs'>
             <div className="about-div1">
               <div className="about-div2">
                 <div className="about-div3">
-                  {/* <img src={nerissa} alt="Nerissa Leynes bio" className='img-about' /> */}
                 </div>
                 <div className="about-div4">
                   <img src={nerissa} alt="Nerissa Leynes bio" className='img-about' />
@@ -92,10 +84,9 @@ class About extends Component {
               </div>
             </div>
           </div>
-
+          </div>
         </section>
-
-        <Footer />
+       <Footer />
       </>
     )
   }
