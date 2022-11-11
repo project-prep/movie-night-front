@@ -24,13 +24,14 @@ class Main extends Component {
       year: '',
       genre: '',
       synopsis: '',
-      isWatched: false,
+      watched: false,
       status: false,
       // updateModalState: false,
       modalState: false,
       imageURL: 'https://images.unsplash.com/photo-1515634928627-2a4e0dae3ddf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2370&q=80',
       updatedMovie: null,
       watchList: [], 
+      test:'',
     }
   }
 
@@ -50,7 +51,8 @@ class Main extends Component {
 
       this.setState({
         title: movieData.data[0].name,
-        streaming: movieData.data[0].locations[0].display_name
+        streaming: movieData.data[0].locations[0].display_name,
+        test: movieData.data[0]._id,
       })
 
     } catch (error) {
@@ -65,15 +67,16 @@ class Main extends Component {
     event.preventDefault();
     let newMovie = {
       title: this.state.title,
-      streaming: this.state.streaming
+      streaming: this.state.streaming,
+      // test: this.state.test
     }
     console.log('newMovie: ', newMovie);
 
     // this.state.watchList.push(newMovie);
 
-    this.setState({
-      watchList: [...this.state.watchList, newMovie]
-    })
+    // this.setState({
+    //   watchList: [...this.state.watchList, newMovie]
+    // })
 
     this.postMovie(newMovie);
 
@@ -101,7 +104,7 @@ class Main extends Component {
   deleteMovie = async (movieID) => {
     try {
       let url = `${process.env.REACT_APP_SERVER}/movieList/${movieID}`;
-
+      console.log(url);
       await axios.delete(url);
 
       let updatedMovie = this.state.watchList.filter(movie => movie._id !== movieID);
@@ -117,21 +120,26 @@ class Main extends Component {
   }
 
   // update movies
-  updateMovie = async (movieToUpdate) => {
-    console.log('Updated Movie: ', movieToUpdate);
+  updateMovie = async (movieID) => {
+    console.log('Updated Movie: ', movieID);
     try {
-      let url = `${process.env.REACT_APP_SERVER}/movieList/${movieToUpdate._id}`;
-
-      let updatedMovie = await axios.put(url, movieToUpdate);
+      // debugger;
+      let url = `${process.env.REACT_APP_SERVER}/movieList/${movieID}`;
+      console.log(url);
+      let updatedMovie = await axios.put(url, movieID);
 
       let updatedMovieArr = this.state.watchList.map(existingMovie => {
-        return existingMovie._id === movieToUpdate._id ? updatedMovie.data : existingMovie;
+        return existingMovie._id === movieID ? updatedMovie.data : existingMovie;
       });
+      console.log(updatedMovie.data);
 
       this.setState({
-        watchList: updatedMovieArr
+        watchList: updatedMovieArr,
+          title: updatedMovie.data[0].name,
+          streaming: updatedMovie.data[0].locations[0].display_name,
+          test: updatedMovie.data[0]._id,
       })
-
+      console.log(this.state.watchList);
     } catch (error) {
       console.log(error.message)
     }
@@ -147,7 +155,7 @@ class Main extends Component {
         watchList: movies.data
       })
 
-      console.log('watchist: ', movies.data)
+      console.log('watchlist: ', movies.data)
 
       // if (this.props.auth0.isAuthenticated) {
       //   const res = await this.props.auth0.getIdTokenClaims();
@@ -183,10 +191,11 @@ class Main extends Component {
     })
   }
 
-  handleOpenUpModal = (bookObj) => {
+  handleOpenUpModal = (movieID) => {
     this.setState({
       modalState: true,
-      updatedMovie:bookObj
+      updatedMovie: movieID,
+
     })
   }
 
@@ -258,9 +267,10 @@ class Main extends Component {
                 <Card.Body key={element._id}>
                   <h3>{element.title}</h3>
                   <h4>{element.streaming}</h4>
-                  <Button onClick={element => this.deleteMovie(element._id)} variant='danger'>Delete Movie</Button>
+                  <Button onClick={() => this.deleteMovie(element._id)} variant='danger'>Delete Movie</Button>
 
-                  <Button onClick= {()=> this.handleOpenUpModal(element)} variant='info'>Update Movie</Button>
+                  <Button onClick= {()=> this.handleOpenUpModal(element._id)} variant='info'>Update Movie</Button>
+                  
 
                   {/* <Form.Group controlId="status">
                   <Form.Check type="checkbox" label="available" defaultValue={this.state.updatedMovie.status} />
@@ -278,9 +288,11 @@ class Main extends Component {
           <UpdateMovie
             show={this.state.modalState}
             close = {this.handleClosedModal}
+            updatedMovie ={this.state.updatedMovie}
+            title= {this.state.title}
+            streaming= {this.state.streaming}
             updateMovie={this.updateMovie}
-            books = {this.state.books}
-            updatedMovie ={this.state.updatedMovie} 
+            
           />
         }
         

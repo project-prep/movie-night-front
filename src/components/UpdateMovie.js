@@ -7,10 +7,14 @@ class AddMovie extends React.Component {
     event.preventDefault();
 
     let newMovie = {
-      watched: event.target.watched.checked
+      watched: event.target.watched.checked,
+      _id: this.props.updatedMovie,
+      title: this.props.title,
+      streaming: this.props.streaming
     }
+    console.log(newMovie._id);
     console.log('newMovie: ', newMovie);
-    this.props.updateMovie(newMovie);
+    this.props.updateMovie(newMovie._id);
   }
 
   render() {
@@ -21,8 +25,8 @@ class AddMovie extends React.Component {
         </Modal.Header>
         <Form className="modalSect" onSubmit={this.handleMovieUpdate}>
           
-          <Form.Group controlId="isWatched">
-            <Form.Check type="checkbox" label="isWatched" />
+          <Form.Group controlId="watched">
+            <Form.Check type="checkbox" label="watched" />
           </Form.Group>
 
           <Button type="submit">Update Movie</Button>
