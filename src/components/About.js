@@ -42,16 +42,18 @@ class About extends Component {
           <div className="about-div1">
             <div className="about-div2">
               <div className="about-div3">
-              </div>
-              <img src={marc} alt="Marc Wagner bio" className='img-about' />
+              
+              
               <div className="about-div4">
+                <img src={marc} alt="Marc Wagner bio" className='img-about' />
                 <h1>Marc Wagner</h1>
                 <p>Software developers</p>
                 <p>I retired 2 years ago from the US Army and since then have been a project manager for a construction testing and inspection company.  As a project manager I was able to cover a good portion of our vehicle maintenance costs by identifying an undercharged service and increasing the fee appropriately.  I specifically chose to become a software developer because it allows me to learn new things, I like problem solving, and I want the opportunity to grow professionally.   I have a lot of soft-skills leaders need to be effective; gained from years of managing and training increasingly larger groups.  I’m hoping to find a role in an environment where I can work with a small team and see projects from start to finish.  I want to do that in a company that doesn’t use the phrase ‘that’s the way we’ve always done it’.</p>
               </div>
+              </div>
             </div>
           </div>
-      
+        </div>
           <div className='item-divs'>
             <div className="about-div1">
               <div className="about-div2">
@@ -84,7 +86,7 @@ class About extends Component {
               </div>
             </div>
           </div>
-          </div>
+          
         </section>
        <Footer />
       </>
