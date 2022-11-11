@@ -47,6 +47,8 @@ class Main extends Component {
 
       console.log('movieResponse: ', movieData.data);
 
+  
+
       // let movie = movieData.data;
 
       this.setState({
@@ -66,7 +68,7 @@ class Main extends Component {
   handleMovieAdd = (event) => {
     event.preventDefault();
     let newMovie = {
-      title: this.state.title,
+      title: this.state.title,     
       streaming: this.state.streaming.join(' '),
       // test: this.state.test
     }
@@ -112,7 +114,7 @@ class Main extends Component {
         watchList: updatedMovie
       });
 
-    console.log('updatedMovie: ', updatedMovie)
+      console.log('updatedMovie: ', updatedMovie)
 
     } catch (error) {
       console.log(error.message);
@@ -192,11 +194,10 @@ class Main extends Component {
     })
   }
 
-  handleOpenUpModal = (movie) => {
+  handleOpenUpModal = (movieObj) => {
     this.setState({
       modalState: true,
-      updatedMovie: movie,
-
+      updatedMovie: movieObj
     })
   }
 
@@ -262,9 +263,9 @@ class Main extends Component {
         <Container className='WatchList'>
           <h2>Your Watchlist</h2>
           {this.state.watchList.length ? (
-            
+
             <Card>
-              {this.state.watchList.map(element =>              
+              {this.state.watchList.map(element =>
                 <Card.Body key={element._id}>
                   <h3>{element.title}</h3>
                   <h4>{element.streaming}</h4>
@@ -272,7 +273,7 @@ class Main extends Component {
                   <Button onClick={() => this.deleteMovie(element._id)} variant='danger'>Delete Movie</Button>
 
                   <Button onClick= {()=> this.handleOpenUpModal(element)} variant='info'>Update Movie</Button>
-                  
+                 
 
                   {/* <Form.Group controlId="status">
                   <Form.Check type="checkbox" label="available" defaultValue={this.state.updatedMovie.status} />
@@ -280,13 +281,13 @@ class Main extends Component {
                 </Card.Body>
               )}
             </Card>
-            
+
           ) : (
             <h3>No Movies in your Watchlist :</h3>
           )}
         </Container>
-          
-        { this.state.updatedMovie &&
+
+        {this.state.updatedMovie &&
           <UpdateMovie
             show={this.state.modalState}
             close = {this.handleClosedModal}
@@ -295,15 +296,12 @@ class Main extends Component {
             streaming= {this.state.streaming}
             updateMovie={this.updateMovie}
             
-            
           />
         }
-        
-        {/* <ul>
-          {this.state.watchList.map(element => (
-            <li key={element._id}>{element.title}</li>
-          ))}
-      </ul> */}
+
+
+        )
+
       </>
     );
   }
