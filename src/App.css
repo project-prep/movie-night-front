@@ -1,5 +1,17 @@
 /* styling for Main.js */
 
+h3{
+  color: black;
+}
+
+h4{
+  color: black;
+}
+
+p{
+  color: black;
+}
+
 .movieCard {
   padding-top: 15px;
   padding-bottom: 15px;
