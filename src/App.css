@@ -71,7 +71,7 @@ div.movie {
 .about-div4 {
   background-color: rgb(99, 24, 4);
   color: white;
-  transform: rotateY(180deg);
+  /* transform: rotateY(180deg); */
 }
 
 .flip-sect {
