@@ -24,13 +24,13 @@ class Main extends Component {
       year: '',
       genre: '',
       synopsis: '',
-      isWatched: false,
+      watched: false,
       status: false,
       // updateModalState: false,
       modalState: false,
       imageURL: 'https://images.unsplash.com/photo-1515634928627-2a4e0dae3ddf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2370&q=80',
       updatedMovie: null,
-      watchList: [], 
+      watchList: [],
     }
   }
 
@@ -45,6 +45,8 @@ class Main extends Component {
 
 
       console.log('movieResponse: ', movieData.data);
+
+  
 
       // let movie = movieData.data;
 
@@ -65,7 +67,9 @@ class Main extends Component {
     event.preventDefault();
     let newMovie = {
       title: this.state.title,
-      streaming: this.state.streaming
+      streaming: this.state.streaming,
+      // added
+      // watched: this.state.false
     }
     console.log('newMovie: ', newMovie);
 
@@ -109,7 +113,7 @@ class Main extends Component {
         watchList: updatedMovie
       });
 
-    console.log('updatedMovie: ', updatedMovie)
+      console.log('updatedMovie: ', updatedMovie)
 
     } catch (error) {
       console.log(error.message);
@@ -183,10 +187,10 @@ class Main extends Component {
     })
   }
 
-  handleOpenUpModal = (bookObj) => {
+  handleOpenUpModal = (movieObj) => {
     this.setState({
       modalState: true,
-      updatedMovie:bookObj
+      updatedMovie: movieObj
     })
   }
 
@@ -240,6 +244,7 @@ class Main extends Component {
                 <Card.Title>{this.state.title}</Card.Title>
                 <div className='movie'>
                   <Card.Text>Streaming Platforms: {this.state.streaming}</Card.Text>
+                  {/* <Card.Text>is Watched: {this.state.watched}</Card.Text> */}
                 </div>
               </Card.Body>
             </Card>
@@ -252,15 +257,15 @@ class Main extends Component {
         <Container className='WatchList'>
           <h2>Your Watchlist</h2>
           {this.state.watchList.length ? (
-            
-            <Card>
-              {this.state.watchList.map(element =>              
-                <Card.Body key={element._id}>
-                  <h3>{element.title}</h3>
-                  <h4>{element.streaming}</h4>
-                  <Button onClick={element => this.deleteMovie(element._id)} variant='danger'>Delete Movie</Button>
 
-                  <Button onClick= {()=> this.handleOpenUpModal(element)} variant='info'>Update Movie</Button>
+            <Card>
+              {this.state.watchList.map(element =>
+                <Card.Body key={element._id}>
+                  <h3 className='h3-title'>{element.title}</h3>
+                  <h4 className='h4-streaming'>{element.streaming}</h4>
+                  <Button onClick={() => this.deleteMovie(element._id)} variant='danger'>Delete Movie</Button>
+
+                  <Button onClick={() => this.handleOpenUpModal(element)} variant='info'>Update Movie</Button>
 
                   {/* <Form.Group controlId="status">
                   <Form.Check type="checkbox" label="available" defaultValue={this.state.updatedMovie.status} />
@@ -268,27 +273,24 @@ class Main extends Component {
                 </Card.Body>
               )}
             </Card>
-            
+
           ) : (
             <h3>No Movies in your Watchlist :</h3>
           )}
         </Container>
-          
-        { this.state.updatedMovie &&
+
+        {this.state.updatedMovie &&
           <UpdateMovie
             show={this.state.modalState}
-            close = {this.handleClosedModal}
+            close={this.handleClosedModal}
             updateMovie={this.updateMovie}
-            books = {this.state.books}
-            updatedMovie ={this.state.updatedMovie} 
+            updatedMovie={this.state.updatedMovie}
           />
         }
-        
-        {/* <ul>
-          {this.state.watchList.map(element => (
-            <li key={element._id}>{element.title}</li>
-          ))}
-      </ul> */}
+
+
+        )
+
       </>
     );
   }
